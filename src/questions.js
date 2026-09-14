@@ -1,79 +1,82 @@
 // "Who Knows Sara?" — Birthday Quiz question bank
-// Correct answers are exactly what Sara wrote in her Google Form.
-// Each question also has 3 extra options in Sara's own style (real group names,
-// plausible chore/time/number guesses) so it plays like a real multiple-choice quiz.
+// Question wording is verbatim from Sara's own Google Form (typos and all —
+// don't "fix" the phrasing). Correct answers are exactly what Sara wrote.
+// Each question also has 3 extra options so it plays like a real multiple-choice
+// quiz; for the "who" questions those distractors are drawn from the whole
+// friend group so everyone's name shows up somewhere. Manish is intentionally
+// never used as an option (he's only ever mentioned inside a question's text).
 
 export const QUESTIONS = [
   {
-    question: "Which household chore does Sara hate the most?",
-    options: ["Putting on the bedsheet", "Washing the dishes", "Doing the laundry", "Sweeping the floor"],
-    correctAnswer: "Putting on the bedsheet",
+    question: "Which household chore Sara hates the most?",
+    options: ["Put on the bedsheet", "Wash the dishes", "Do the laundry", "Sweep the floor"],
+    correctAnswer: "Put on the bedsheet",
   },
   {
     question:
-      "Does Sara really like hosting, or does she just think 'sab bhukkad hai toh khilana padega'?",
+      "Does Sara really like hosting or she thinks iss group mai sab bhukkad hai toh khilana padega.",
     options: [
-      "She genuinely likes hosting!",
+      "I like hosting",
       "Sab bhukkad hai, isliye khilana padta hai",
       "Both, equally",
       "She secretly hates hosting",
     ],
-    correctAnswer: "She genuinely likes hosting!",
+    correctAnswer: "I like hosting",
   },
   {
-    question: "True or False: Sara secretly wants to make funny TikToks with Piyush bhai.",
+    question: "Sara wants to secretly create funny tik toks with Piyush bhai, True or False.",
     options: ["True", "False"],
     correctAnswer: "True",
   },
   {
-    question: "What time of day was Sara born?",
-    options: ["10:44 AM", "6:15 AM", "11:52 PM", "3:30 PM"],
-    correctAnswer: "10:44 AM",
+    question: "At what time of the day Sara was born?",
+    options: ["10:44 am", "6:15 am", "11:52 pm", "3:30 pm"],
+    correctAnswer: "10:44 am",
   },
   {
-    question: "How many times a day does Sara complain about her work to Manish?",
-    options: ["3 times", "1 time", "5 times", "10+ times"],
-    correctAnswer: "3 times",
+    question: "How many times a day Sara complains about her work to Manish?",
+    options: ["1", "3", "5", "10"],
+    correctAnswer: "3",
   },
   {
-    question: "True or False: Sara intentionally hides her Meerut wali accent.",
+    question: "Sara intentionally hides her meerut ka accent. True or False.",
     options: ["True", "False"],
     correctAnswer: "False",
   },
   {
-    question: "Whose dressing style in the group does Sara like the most?",
-    options: ["Akansha", "Zalak", "Nitpreet", "Pulkit"],
+    question: "Who's dressing style in this group Sara likes the most?",
+    options: ["Akansha", "Karan", "Bhumi", "Sarvesh"],
     correctAnswer: "Akansha",
   },
   {
-    question: "According to Sara, who is the most 'dark' (savage) person in the group?",
-    options: ["Piyush bhai", "Manish", "Aashvi", "Nitpreet"],
+    question: "Who's is the most darkest person in this group according to Sara?",
+    options: ["Piyush bhai", "Arpit", "Anisha", "Manjit"],
     correctAnswer: "Piyush bhai",
   },
   {
-    question: "According to Sara, who is the funniest person in the group?",
-    options: ["Nitpreet", "Zalak", "Pulkit", "Akansha"],
+    question: "Who's is the most funniest person in this group according to Sara?",
+    options: ["Nitpreet", "Karan", "Zalak", "Bhumi"],
     correctAnswer: "Nitpreet",
   },
   {
-    question: "Which person could Sara spend the whole day talking and gossiping with?",
-    options: ["Akansha", "Manish", "Zalak", "Aashvi"],
+    question: "Which person in this group Sara can spend whole day talking and gossiping to?",
+    options: ["Akansha", "Arpit", "Sarvesh", "Aashvi"],
     correctAnswer: "Akansha",
   },
   {
-    question: "With whom would Sara love to post Insta stories because they're photogenic?",
-    options: ["Zalak", "Piyush bhai", "Pulkit", "Nitpreet"],
+    question: "With which person would Sara like to post insta stories because they are photogenic?",
+    options: ["Zalak", "Anisha", "Pulkit", "Manjit"],
     correctAnswer: "Zalak",
   },
   {
     question:
-      "Which person does Sara wish Aashvi would spend LESS time with, because they'd be a bad influence?",
-    options: ["Nitpreet", "Manish", "Akansha", "Zalak"],
+      "Which one person in this group would Sara want Aashvi to not spend time with, because they would spoil her.",
+    options: ["Nitpreet", "Karan", "Manjit", "Bhumi"],
     correctAnswer: "Nitpreet",
   },
   {
-    question: "Which person inspires Sara the most?",
-    options: ["Pulkit", "Piyush bhai", "Manish", "Aashvi"],
+    question: "Which one person in this group inspires Sara the most?",
+    options: ["Pulkit", "Sarvesh", "Arpit", "Anisha"],
     correctAnswer: "Pulkit",
   },
 ];
