@@ -5,6 +5,7 @@ import { ADMIN_PIN, isSupabaseConfigured } from "../config";
 import SetupNeeded from "../SetupNeeded";
 import ErrorCard from "../ErrorCard";
 import Leaderboard from "../components/Leaderboard";
+import { avatarForId } from "../avatars";
 
 export default function AdminPage() {
   const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem("sara_admin_ok") === "1");
@@ -209,7 +210,7 @@ export default function AdminPage() {
               {players.length ? (
                 players.map((p) => (
                   <span key={p.id} className="chip">
-                    {p.name}
+                    <span className="avatar">{avatarForId(p.id)}</span> {p.name}
                   </span>
                 ))
               ) : (

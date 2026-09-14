@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../supabaseClient";
+import { avatarForId } from "../avatars";
 
 function spawnConfetti() {
   const emojis = ["🌸", "🌼", "🌷", "🎉", "✨", "👑"];
@@ -60,7 +61,9 @@ export default function Leaderboard({ highlightPlayerId, showWinner = true, conf
       {showWinner && (
         <>
           <span className="winner-crown">&#128081;</span>
-          <h1>{winner ? winner.name : "Nobody"} wins!</h1>
+          <h1>
+            {winner ? `${avatarForId(winner.id)} ${winner.name}` : "Nobody"} wins!
+          </h1>
           <p className="winner-score">{winner ? winner.score : 0} points — Sara's #1 fan &#127800;</p>
         </>
       )}
@@ -72,7 +75,7 @@ export default function Leaderboard({ highlightPlayerId, showWinner = true, conf
               {medal(i)}
             </span>
             <span className="name">
-              {p.name}
+              <span className="avatar">{avatarForId(p.id)}</span> {p.name}
               {p.id === highlightPlayerId ? " (you)" : ""}
             </span>
             <span className="score">{p.score} pts</span>

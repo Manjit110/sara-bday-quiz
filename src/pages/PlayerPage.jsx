@@ -5,6 +5,7 @@ import { isSupabaseConfigured } from "../config";
 import SetupNeeded from "../SetupNeeded";
 import ErrorCard from "../ErrorCard";
 import Leaderboard from "../components/Leaderboard";
+import { avatarForId } from "../avatars";
 
 function loadStoredPlayer() {
   try {
@@ -173,7 +174,7 @@ function WaitingRoom({ players, player }) {
       <div className="player-list">
         {players.map((p) => (
           <span key={p.id} className={`chip ${p.id === player.id ? "you" : ""}`}>
-            {p.name}
+            <span className="avatar">{avatarForId(p.id)}</span> {p.name}
           </span>
         ))}
       </div>
