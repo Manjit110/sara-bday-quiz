@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { QUESTIONS, QUESTION_SECONDS } from "../questions";
+import { isSupabaseConfigured } from "../config";
+import SetupNeeded from "../SetupNeeded";
+import ErrorCard from "../ErrorCard";
 
 function loadStoredPlayer() {
   try {
@@ -15,26 +18,38 @@ export default function PlayerPage() {
   const [gameState, setGameState] = useState(null);
   const [players, setPlayers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [retryTick, setRetryTick] = useState(0);
 
   useEffect(() => {
+    if (!isSupabaseConfigured) return;
     let cancelled = false;
 
     async function bootstrap() {
-      const [{ data: gs }, { data: pls }] = await Promise.all([
-        supabase.from("game_state").select("*").eq("id", 1).single(),
-        supabase.from("players").select("*").order("joined_at", { ascending: true }),
-      ]);
-      if (cancelled) return;
+      setLoading(true);
+      setError(null);
+      try {
+        const [{ data: gs, error: gsError }, { data: pls, error: plsError }] = await Promise.all([
+          supabase.from("game_state").select("*").eq("id", 1).single(),
+          supabase.from("players").select("*").order("joined_at", { ascending: true }),
+        ]);
+        if (cancelled) return;
+        if (gsError) throw gsError;
+        if (plsError) throw plsError;
 
-      const stored = loadStoredPlayer();
-      if (stored && !(pls || []).some((p) => p.id === stored.id)) {
-        localStorage.removeItem("sara_quiz_player");
-        setPlayer(null);
+        const stored = loadStoredPlayer();
+        if (stored && !(pls || []).some((p) => p.id === stored.id)) {
+          localStorage.removeItem("sara_quiz_player");
+          setPlayer(null);
+        }
+
+        setGameState(gs);
+        setPlayers(pls || []);
+      } catch (e) {
+        if (!cancelled) setError(e.message || String(e));
+      } finally {
+        if (!cancelled) setLoading(false);
       }
-
-      setGameState(gs);
-      setPlayers(pls || []);
-      setLoading(false);
     }
     bootstrap();
 
@@ -61,7 +76,7 @@ export default function PlayerPage() {
       supabase.removeChannel(gsChannel);
       supabase.removeChannel(playersChannel);
     };
-  }, []);
+  }, [retryTick]);
 
   async function handleJoin(name) {
     const { data, error } = await supabase.from("players").insert({ name }).select().single();
@@ -77,6 +92,14 @@ export default function PlayerPage() {
       .select("*")
       .order("joined_at", { ascending: true });
     setPlayers(pls || []);
+  }
+
+  if (!isSupabaseConfigured) {
+    return <SetupNeeded />;
+  }
+
+  if (error) {
+    return <ErrorCard message={error} onRetry={() => setRetryTick((t) => t + 1)} />;
   }
 
   if (loading) {

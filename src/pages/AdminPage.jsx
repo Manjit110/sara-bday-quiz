@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { QUESTIONS, QUESTION_SECONDS } from "../questions";
-import { ADMIN_PIN } from "../config";
+import { ADMIN_PIN, isSupabaseConfigured } from "../config";
+import SetupNeeded from "../SetupNeeded";
+import ErrorCard from "../ErrorCard";
 
 export default function AdminPage() {
   const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem("sara_admin_ok") === "1");
@@ -9,6 +11,8 @@ export default function AdminPage() {
   const [players, setPlayers] = useState([]);
   const [answeredCount, setAnsweredCount] = useState(0);
   const [driving, setDriving] = useState(false);
+  const [error, setError] = useState(null);
+  const [retryTick, setRetryTick] = useState(0);
 
   const gameStateRef = useRef(null);
   const advanceTimer = useRef(null);
@@ -30,17 +34,25 @@ export default function AdminPage() {
   }
 
   useEffect(() => {
+    if (!unlocked || !isSupabaseConfigured) return;
     let cancelled = false;
 
     async function bootstrap() {
-      const [{ data: gs }, { data: pls }] = await Promise.all([
-        supabase.from("game_state").select("*").eq("id", 1).single(),
-        supabase.from("players").select("*").order("joined_at", { ascending: true }),
-      ]);
-      if (cancelled) return;
-      setGameState(gs);
-      setPlayers(pls || []);
-      await refreshAnsweredCount(gs);
+      setError(null);
+      try {
+        const [{ data: gs, error: gsError }, { data: pls, error: plsError }] = await Promise.all([
+          supabase.from("game_state").select("*").eq("id", 1).single(),
+          supabase.from("players").select("*").order("joined_at", { ascending: true }),
+        ]);
+        if (cancelled) return;
+        if (gsError) throw gsError;
+        if (plsError) throw plsError;
+        setGameState(gs);
+        setPlayers(pls || []);
+        await refreshAnsweredCount(gs);
+      } catch (e) {
+        if (!cancelled) setError(e.message || String(e));
+      }
     }
     bootstrap();
 
@@ -77,7 +89,7 @@ export default function AdminPage() {
       supabase.removeChannel(answersChannel);
       if (advanceTimer.current) clearTimeout(advanceTimer.current);
     };
-  }, []);
+  }, [unlocked, retryTick]);
 
   async function advanceOrFinish(fromIndex) {
     const nextIndex = fromIndex + 1;
@@ -128,6 +140,10 @@ export default function AdminPage() {
       .eq("id", 1);
   }
 
+  if (!isSupabaseConfigured) {
+    return <SetupNeeded />;
+  }
+
   if (!unlocked) {
     return (
       <div className="app">
@@ -141,6 +157,10 @@ export default function AdminPage() {
         </div>
       </div>
     );
+  }
+
+  if (error) {
+    return <ErrorCard message={error} onRetry={() => setRetryTick((t) => t + 1)} />;
   }
 
   if (!gameState) {
