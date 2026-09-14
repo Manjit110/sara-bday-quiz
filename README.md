@@ -3,15 +3,23 @@
 A live, multiplayer "how well do you know Sara" quiz for her birthday. Questions and
 correct answers come straight from Sara's own Google Form. Friends join with just
 their name, wait in a lobby, then answer 13 timed multiple-choice questions (15
-seconds each) together. Ends with a ranked leaderboard and a crowned winner. No
-build step — plain HTML/CSS/JS, backed by Supabase for live sync and scoring.
+seconds each) together. Ends with a ranked leaderboard and a crowned winner.
+
+Built with **React + Vite**, backed by **Supabase** for live sync and scoring, and
+deployed to **GitHub Pages** automatically via GitHub Actions on every push to `main`.
+
+## Links (after setup below)
+
+- **Player link:** `https://<your-github-username>.github.io/sara-bday-quiz/#/`
+- **Admin link:** `https://<your-github-username>.github.io/sara-bday-quiz/#/admin`
+
+(Both are the same site — `/admin` is just a different route, gated by a PIN.)
 
 ## How it works
 
-- **`index.html`** — the player app: name entry → waiting room → live quiz → leaderboard.
-- **`admin.html`** — the host dashboard: see who's joined, hit **Start Quiz**, and it
-  auto-advances every 15 seconds until the last question, then everyone sees the
-  leaderboard.
+- **`src/pages/PlayerPage.jsx`** — the player app: name entry → waiting room → live quiz → leaderboard.
+- **`src/pages/AdminPage.jsx`** — the host dashboard: see who's joined, hit **Start Quiz**, and it
+  auto-advances every 15 seconds until the last question, then everyone sees the leaderboard.
 - **Supabase** stores players, the shared game state, and every submitted answer, and
   pushes realtime updates to every open tab (Supabase Realtime on Postgres changes).
   Scoring (100 pts + a speed bonus for fast correct answers) happens in a Postgres
@@ -24,19 +32,29 @@ build step — plain HTML/CSS/JS, backed by Supabase for live sync and scoring.
    This creates the `players`, `game_state`, and `answers` tables, the scoring trigger, RLS
    policies, and turns on realtime for all three tables.
 3. In **Project Settings → API**, copy your **Project URL** and **anon public key**.
-4. Open [`assets/config.js`](assets/config.js) and fill in:
+4. Open [`src/config.js`](src/config.js) and fill in:
    ```js
-   const SUPABASE_URL = "https://xxxxx.supabase.co";
-   const SUPABASE_ANON_KEY = "eyJ...";
-   const ADMIN_PIN = "pick-your-own-pin";
+   export const SUPABASE_URL = "https://xxxxx.supabase.co";
+   export const SUPABASE_ANON_KEY = "eyJ...";
+   export const ADMIN_PIN = "pick-your-own-pin";
    ```
-5. Commit and push. Turn on **GitHub Pages** for this repo (Settings → Pages → Deploy
-   from branch `main`, root `/`).
+5. In the repo's **Settings → Pages**, set Source to **GitHub Actions** (only needed once).
+6. Commit and push to `main` — the included workflow (`.github/workflows/deploy.yml`)
+   builds the app and deploys it to GitHub Pages automatically.
+
+## Local development
+
+```bash
+npm install
+npm run dev
+```
+
+Then open the printed local URL for the player view, and `/#/admin` for the admin view.
 
 ## Running the quiz on the day
 
-1. Open `admin.html` on your (the host's) phone or laptop, enter the admin PIN.
-2. Share the `index.html` link with everyone — they enter their name and land in the
+1. Open the **admin link** on your (the host's) phone or laptop, enter the admin PIN.
+2. Share the **player link** with everyone — they enter their name and land in the
    waiting room, watching people pile in.
 3. Once everyone's in, hit **Start Quiz** on the admin dashboard. Every player is
    instantly moved to Question 1 with a 15-second countdown ring.
@@ -53,6 +71,6 @@ build step — plain HTML/CSS/JS, backed by Supabase for live sync and scoring.
 - This is built for a trusted friend-group party, not a public competition: the admin
   PIN is a light deterrent (not real auth), and since the browser needs the answer key
   to grade instantly, a determined player could find it in the page source. Don't share
-  the repo or `admin.html` link with anyone before the reveal if that matters to you.
-- All 13 questions and Sara's real answers live in [`assets/questions.js`](assets/questions.js) —
+  the admin link with anyone before the reveal if that matters to you.
+- All 13 questions and Sara's real answers live in [`src/questions.js`](src/questions.js) —
   edit that file to tweak wording, add/remove questions, or adjust distractor options.

@@ -17,7 +17,8 @@
 }
 
 html,
-body {
+body,
+#root {
   margin: 0;
   min-height: 100%;
 }
@@ -26,14 +27,17 @@ body {
   font-family: "Fredoka", "Baloo 2", sans-serif;
   color: var(--ink);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
   padding: 24px;
   position: relative;
   overflow-x: hidden;
   background: linear-gradient(180deg, #fff0f5 0%, #ffe8ef 40%, #fef3d9 100%);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ---- flowery cartoon backdrop ---- */
@@ -133,7 +137,8 @@ p.subtitle {
   color: #8a6b7f;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   width: 100%;
   font-family: inherit;
   font-size: 1.1rem;
@@ -146,7 +151,8 @@ input[type="text"] {
   background: #fff;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
   border-color: var(--pink-dark);
 }
 
@@ -167,11 +173,11 @@ button {
   transition: transform 0.08s ease;
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(:disabled) {
   transform: translateY(-2px);
 }
 
-.btn-primary:active {
+.btn-primary:active:not(:disabled) {
   transform: translateY(3px);
   box-shadow: 0 2px 0 #c73764;
 }
@@ -315,16 +321,6 @@ button {
   border-color: #e0b400;
 }
 
-.opt-btn.correct {
-  background: #baf0c7;
-  border-color: #4caf6f;
-}
-
-.opt-btn.incorrect {
-  background: #ffc9c9;
-  border-color: #e0524f;
-}
-
 .status-msg {
   margin-top: 16px;
   color: #a5748f;
@@ -402,6 +398,7 @@ button {
   font-size: 1.4rem;
   animation: fall linear forwards;
   z-index: 5;
+  pointer-events: none;
 }
 
 @keyframes fall {

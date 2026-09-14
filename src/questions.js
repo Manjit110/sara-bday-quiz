@@ -3,7 +3,7 @@
 // Each question also has 3 extra options in Sara's own style (real group names,
 // plausible chore/time/number guesses) so it plays like a real multiple-choice quiz.
 
-const QUESTIONS = [
+export const QUESTIONS = [
   {
     question: "Which household chore does Sara hate the most?",
     options: ["Putting on the bedsheet", "Washing the dishes", "Doing the laundry", "Sweeping the floor"],
@@ -78,4 +78,4 @@ const QUESTIONS = [
   },
 ];
 
-const QUESTION_SECONDS = 15;
+export const QUESTION_SECONDS = 15;
