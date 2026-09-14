@@ -4,6 +4,7 @@ import { QUESTIONS, QUESTION_SECONDS } from "../questions";
 import { ADMIN_PIN, isSupabaseConfigured } from "../config";
 import SetupNeeded from "../SetupNeeded";
 import ErrorCard from "../ErrorCard";
+import Leaderboard from "../components/Leaderboard";
 
 export default function AdminPage() {
   const [unlocked, setUnlocked] = useState(() => sessionStorage.getItem("sara_admin_ok") === "1");
@@ -13,6 +14,7 @@ export default function AdminPage() {
   const [driving, setDriving] = useState(false);
   const [error, setError] = useState(null);
   const [retryTick, setRetryTick] = useState(0);
+  const [showScoreboard, setShowScoreboard] = useState(false);
 
   const gameStateRef = useRef(null);
   const advanceTimer = useRef(null);
@@ -177,7 +179,21 @@ export default function AdminPage() {
         <span className="admin-badge">ADMIN</span>
         <h1>Sara's Quiz Control</h1>
 
-        {gameState.status === "waiting" && (
+        {gameState.status !== "finished" && players.length > 0 && (
+          <button
+            className="btn-danger"
+            style={{ marginBottom: 14 }}
+            onClick={() => setShowScoreboard((s) => !s)}
+          >
+            {showScoreboard ? "Back to controls" : "View scoreboard"}
+          </button>
+        )}
+
+        {gameState.status !== "finished" && showScoreboard && (
+          <Leaderboard showWinner={false} confetti={false} />
+        )}
+
+        {gameState.status === "waiting" && !showScoreboard && (
           <>
             <div className="admin-grid">
               <div className="stat">
@@ -206,7 +222,7 @@ export default function AdminPage() {
           </>
         )}
 
-        {gameState.status === "active" && (
+        {gameState.status === "active" && !showScoreboard && (
           <>
             <div className="admin-grid">
               <div className="stat">
@@ -236,11 +252,7 @@ export default function AdminPage() {
           </>
         )}
 
-        {gameState.status === "finished" && (
-          <p className="status-msg">
-            Quiz finished! Everyone should be looking at the leaderboard now. &#127942;
-          </p>
-        )}
+        {gameState.status === "finished" && <Leaderboard showWinner confetti={false} />}
 
         <div style={{ marginTop: 20 }}>
           <button className="btn-danger" onClick={resetGame}>

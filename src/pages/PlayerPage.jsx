@@ -1,9 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { QUESTIONS, QUESTION_SECONDS } from "../questions";
 import { isSupabaseConfigured } from "../config";
 import SetupNeeded from "../SetupNeeded";
 import ErrorCard from "../ErrorCard";
+import Leaderboard from "../components/Leaderboard";
 
 function loadStoredPlayer() {
   try {
@@ -120,7 +121,9 @@ export default function PlayerPage() {
         {player && gameState && gameState.status === "active" && (
           <QuestionScreen key={gameState.current_question} gameState={gameState} player={player} />
         )}
-        {player && gameState && gameState.status === "finished" && <Leaderboard player={player} />}
+        {player && gameState && gameState.status === "finished" && (
+          <Leaderboard highlightPlayerId={player.id} confetti />
+        )}
       </div>
     </div>
   );
@@ -281,64 +284,3 @@ function QuestionScreen({ gameState, player }) {
   );
 }
 
-function Leaderboard({ player }) {
-  const [ranked, setRanked] = useState(null);
-  const confettiSpawned = useRef(false);
-
-  useEffect(() => {
-    supabase
-      .from("players")
-      .select("*")
-      .order("score", { ascending: false })
-      .then(({ data }) => setRanked(data || []));
-  }, []);
-
-  useEffect(() => {
-    if (ranked && !confettiSpawned.current) {
-      confettiSpawned.current = true;
-      spawnConfetti();
-    }
-  }, [ranked]);
-
-  if (!ranked) return <div className="status-msg">Tallying scores...</div>;
-
-  const winner = ranked[0];
-  const medal = (i) => (i === 0 ? " \u{1F451}" : i === 1 ? " \u{1F948}" : i === 2 ? " \u{1F949}" : "");
-
-  return (
-    <>
-      <span className="winner-crown">&#128081;</span>
-      <h1>{winner ? winner.name : "Nobody"} wins!</h1>
-      <p className="winner-score">{winner ? winner.score : 0} points — Sara's #1 fan &#127800;</p>
-      <ul className="rank-list">
-        {ranked.map((p, i) => (
-          <li key={p.id}>
-            <span className="pos">
-              {i + 1}
-              {medal(i)}
-            </span>
-            <span className="name">
-              {p.name}
-              {p.id === player.id ? " (you)" : ""}
-            </span>
-            <span className="score">{p.score} pts</span>
-          </li>
-        ))}
-      </ul>
-    </>
-  );
-}
-
-function spawnConfetti() {
-  const emojis = ["🌸", "🌼", "🌷", "🎉", "✨", "👑"];
-  for (let i = 0; i < 30; i++) {
-    const el = document.createElement("div");
-    el.className = "confetti";
-    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-    el.style.left = Math.random() * 100 + "vw";
-    el.style.animationDuration = 3 + Math.random() * 3 + "s";
-    el.style.animationDelay = Math.random() * 2 + "s";
-    document.body.appendChild(el);
-    setTimeout(() => el.remove(), 8000);
-  }
-}

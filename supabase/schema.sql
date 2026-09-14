@@ -66,6 +66,8 @@ drop policy if exists "join as player" on players;
 create policy "join as player" on players for insert with check (true);
 drop policy if exists "admin can delete players" on players;
 create policy "admin can delete players" on players for delete using (true);
+drop policy if exists "update players" on players;
+create policy "update players" on players for update using (true) with check (true);
 
 drop policy if exists "read game state" on game_state;
 create policy "read game state" on game_state for select using (true);
