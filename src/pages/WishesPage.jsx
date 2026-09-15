@@ -36,18 +36,16 @@ function Polaroid({ person, index, onOpen }) {
   );
 }
 
-function LetterModal({ person, index, total, onClose, onNav }) {
+function LetterModal({ person, index, onClose }) {
   const photo = person ? photoFor(person.id) : null;
 
   useEffect(() => {
     function onKey(e) {
       if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") onNav(1);
-      if (e.key === "ArrowLeft") onNav(-1);
     }
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onClose, onNav]);
+  }, [onClose]);
 
   if (!person) return null;
 
@@ -75,18 +73,6 @@ function LetterModal({ person, index, total, onClose, onNav }) {
 
         <h2 className="letter-name">{person.name}</h2>
         <p className="letter-body">{person.message}</p>
-
-        <div className="letter-nav">
-          <button className="letter-arrow" onClick={() => onNav(-1)} aria-label="Previous message">
-            ‹
-          </button>
-          <span className="letter-count">
-            {index + 1} / {total}
-          </span>
-          <button className="letter-arrow" onClick={() => onNav(1)} aria-label="Next message">
-            ›
-          </button>
-        </div>
       </div>
     </div>
   );
@@ -97,13 +83,6 @@ export default function WishesPage() {
   const husband = WISHES.find((w) => w.isHusband);
   const friends = WISHES.filter((w) => !w.isHusband);
   const ordered = [...friends, ...(husband ? [husband] : [])];
-
-  function navigate(delta) {
-    setOpenIndex((i) => {
-      if (i === null) return i;
-      return (i + delta + ordered.length) % ordered.length;
-    });
-  }
 
   return (
     <div className="wishes-app">
@@ -127,13 +106,7 @@ export default function WishesPage() {
       </div>
 
       {openIndex !== null && (
-        <LetterModal
-          person={ordered[openIndex]}
-          index={openIndex}
-          total={ordered.length}
-          onClose={() => setOpenIndex(null)}
-          onNav={navigate}
-        />
+        <LetterModal person={ordered[openIndex]} index={openIndex} onClose={() => setOpenIndex(null)} />
       )}
     </div>
   );

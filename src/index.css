@@ -803,34 +803,6 @@ button {
   margin: 0;
 }
 
-.letter-nav {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 16px;
-  margin-top: 20px;
-  padding-top: 16px;
-  border-top: 2px dashed #eeddd2;
-}
-
-.letter-arrow {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: #fff;
-  border: 2px solid var(--lavender);
-  color: var(--ink);
-  font-size: 1.4rem;
-  line-height: 1;
-}
-
-.letter-count {
-  font-weight: 600;
-  color: #a5748f;
-  font-size: 0.9rem;
-  min-width: 50px;
-}
-
 @media (max-width: 480px) {
   .wishes-grid {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
