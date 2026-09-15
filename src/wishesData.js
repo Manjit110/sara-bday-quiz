@@ -41,8 +41,7 @@ Also, I'd like to officially remind you that I am STILL waiting for those legend
   {
     id: "akansha",
     name: "Akansha",
-    message: `Memory:
-One memory? Impossible. I have hundreds of tiny memories with you - hours of us talking, Sara constantly asking me "kya khaaoge, batao?", me running to Sara because apparently only she could curl my hair 😂 — just a million little, beautiful moments that I'll always hold close.
+    message: `One memory? Impossible. I have hundreds of tiny memories with you - hours of us talking, Sara constantly asking me "kya khaaoge, batao?", me running to Sara because apparently only she could curl my hair 😂 — just a million little, beautiful moments that I'll always hold close.
 
 Words that instantly come to mind:
 Beautiful but bold
@@ -53,7 +52,6 @@ I love how you put your opinions forward — always sassy and confident, but som
 One quality I appreciate:
 You are fiercely independent; nobody can really influence the choices you make, and I genuinely admire that about you.
 
-Message:
 I still remember the first time we spoke through Manni's phone back in Montréal. I remember thinking, fun bandi hai, full bakchod 😂 But when I actually met you in person, I knew we were going to be really good friends.
 
 You took your sweet time observing everyone before deciding who you wanted to call your friends — but once you did, you gave those friendships your absolute best. And I think that's what makes you so special.
@@ -67,13 +65,11 @@ Love you, my fellow Virgo ❤️`,
   {
     id: "sarvesh",
     name: "Sarvesh",
-    message: `Message:
-Yoyo Saraaa, happy 25th! 🥳 Welcome to that age where you are still young enough to be chaotic, but old enough to act like you have everything figured out. 😂
+    message: `Yoyo Saraaa, happy 25th! 🥳 Welcome to that age where you are still young enough to be chaotic, but old enough to act like you have everything figured out. 😂
 Keep being your hyperactive and cheerful self because that energy is very much your trademark.
 Wishing you loads of happiness, success and a year full of good memories… preferably with as little dairy-related drama as possible. 😂
 Have an amazing one! 🤠🎂
 
-Story:
 When I think of Sara, unfortunately the first thing that comes to mind is dahi and cream. 😂
 Not because she loves them… but because somehow being lactose intolerant has become such an important part of her personality that whenever there's dairy around, I automatically think, "Sara ye kha sakti hai ya nahi?"
 
@@ -89,14 +85,12 @@ And that is probably the most Sara thing about Sara.`,
   {
     id: "anisha",
     name: "Anisha",
-    message: `Story:
-One thing about Sara that always makes me smile is her sense of humour. She's so quick with her jokes and puns, and somehow the timing is always perfect — she can turn the most normal conversation into something hilarious.
+    message: `One thing about Sara that always makes me smile is her sense of humour. She's so quick with her jokes and puns, and somehow the timing is always perfect — she can turn the most normal conversation into something hilarious.
 
 If I had to describe her in a few words, I'd say she's the perfect mix of naughty and kind. And something that is so Sara has to be watching her go through a menu, carefully figuring out what she can order without lactose ruining the rest of her day. 😄
 
 But one thing I genuinely admire about her is how giving she is. She does so much for people without expecting much in return, and I think that says a lot about the kind of person she is.
 
-Birthday wish:
 Happy Birthday to the youngest of the group — which basically means you have the least excuse for acting the most dramatic 😄
 
 Stay witty, naughty, kind, and exactly as Sara as you are. Hope this year brings you lots of happiness, great food, and menus with plenty of lactose-free options 😂❤️`,
@@ -116,7 +110,6 @@ She LOVES feeding people! 😂 Official Annapurna devi of our group, nobody is a
 Quality I really admire about her:
 You have such fun-loving vibes, positive energy, and a beautiful way of making the people around you feel cared for and happy. ❤️
 
-The Message 💌
 Happy Birthday, Sara! 🥳❤️ Love you loads! 💕
 
 Stay exactly the way you are - full of life, love, and positivity.
@@ -187,8 +180,7 @@ Stay crazy, adventurous and lactose-free! 🐎🍦😂`,
     id: "manish",
     name: "Manish",
     isHusband: true,
-    message: `A memory that always makes me smile:
-During our wedding photoshoot in Jaipur, I tried to lift her up and spin her around, classic filmy pose, right? Except she was NOT light and we just ended up laughing so hard we couldn't even finish the shot. Still one of my favorite failed attempts ever. And honestly, the first time I ever saw her, she had these two hair buns on her head, like little ladoos, total Mickey Mouse vibes. I still smile every time that image pops into my head. Also, for the longest time she used to call me every single morning to wake me up, even though I was already up on my own. I never told her to stop because honestly, I liked it too much.
+    message: `During our wedding photoshoot in Jaipur, I tried to lift her up and spin her around, classic filmy pose, right? Except she was NOT light and we just ended up laughing so hard we couldn't even finish the shot. Still one of my favorite failed attempts ever. And honestly, the first time I ever saw her, she had these two hair buns on her head, like little ladoos, total Mickey Mouse vibes. I still smile every time that image pops into my head. Also, for the longest time she used to call me every single morning to wake me up, even though I was already up on my own. I never told her to stop because honestly, I liked it too much.
 
 Words that come to mind when I think of her:
 Lifeline. Firecracker. Home.
@@ -199,7 +191,6 @@ She has banned me from the kitchen, like, full lifetime ban, and then complains 
 A quality I really admire:
 No matter what's going on, she always shows up for the people she loves. Doesn't matter the situation, she's there.
 
-Birthday message for Sara:
 From an Instagram DM to this, who would've thought? We talked, then talked more, then somehow fell into this long-distance thing with me in Canada and you in India, surviving on video calls that went way too late into the night. Then our families met, and then you became my wife. You moved here and became my actual life support system, the reason I function, the reason I even own a Lexus (yes, I'm crediting you for that too). Here's to more spins I definitely can't pull off, more mornings I secretly loved being woken up for, and more of you being you. Happy birthday, my firecracker. I love you❤️`,
   },
 ];
