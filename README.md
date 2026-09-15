@@ -12,18 +12,28 @@ deployed to **GitHub Pages** automatically via GitHub Actions on every push to `
 
 - **Player link:** `https://<your-github-username>.github.io/sara-bday-quiz/#/`
 - **Admin link:** `https://<your-github-username>.github.io/sara-bday-quiz/#/admin`
+- **Birthday wishes link:** `https://<your-github-username>.github.io/sara-bday-quiz/#/wishes`
 
-(Both are the same site — `/admin` is just a different route, gated by a PIN.)
+(All three are the same site — `/admin` and `/wishes` are just different routes. `/wishes`
+needs no PIN and no Supabase; share it separately from the quiz link whenever you like.)
 
 ## How it works
 
 - **`src/pages/PlayerPage.jsx`** — the player app: name entry → waiting room → live quiz → leaderboard.
 - **`src/pages/AdminPage.jsx`** — the host dashboard: see who's joined, hit **Start Quiz**, and it
   auto-advances every 15 seconds until the last question, then everyone sees the leaderboard.
+- **`src/pages/WishesPage.jsx`** — a standalone "birthday wishes" page: a corkboard of polaroid
+  photos, one per friend (Manish, her husband, pinned separately below as the closer). Tap a
+  photo to open the full letter, with prev/next to browse everyone's message. Static — no
+  Supabase needed. Edit **[`src/wishesData.js`](src/wishesData.js)** to add/edit messages, and
+  drop real photos into **[`src/assets/wishes/`](src/assets/wishes/README.md)** named after each
+  person's `id` (e.g. `nitpreet.jpg`) — no code changes needed, they're picked up automatically
+  on the next deploy. Anyone without a photo just gets a colored initial avatar.
 - **Supabase** stores players, the shared game state, and every submitted answer, and
   pushes realtime updates to every open tab (Supabase Realtime on Postgres changes).
   Scoring (100 pts + a speed bonus for fast correct answers) happens in a Postgres
-  trigger, so it's recorded server-side, not trusted to the client.
+  trigger, so it's recorded server-side, not trusted to the client. (The wishes page
+  doesn't use Supabase at all — it's plain static content.)
 
 ## One-time setup
 

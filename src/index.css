@@ -573,6 +573,279 @@ button {
   }
 }
 
+/* ---- wishes page ---- */
+.wishes-app {
+  width: 100%;
+  max-width: 900px;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+.wishes-header h1 {
+  font-size: 2rem;
+}
+
+.corkboard {
+  background: linear-gradient(180deg, #d8b88a 0%, #c9a574 100%);
+  border-radius: 24px;
+  padding: 32px 20px 26px;
+  box-shadow: 0 18px 0 -6px var(--shadow), 0 20px 40px var(--shadow), inset 0 0 0 10px rgba(255, 255, 255, 0.15);
+  border: 4px solid #fff;
+}
+
+.wishes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 26px 18px;
+}
+
+.polaroid {
+  background: #fff;
+  border-radius: 6px;
+  padding: 12px 12px 16px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  transform: rotate(var(--tilt, 0deg));
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  position: relative;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.polaroid:hover,
+.polaroid:focus-visible {
+  transform: rotate(0deg) scale(1.05);
+  box-shadow: 0 14px 24px rgba(0, 0, 0, 0.3);
+  z-index: 2;
+}
+
+.polaroid-pin {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%) rotate(8deg);
+  font-size: 1.3rem;
+  filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.3));
+}
+
+.polaroid-photo {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 3px;
+  overflow: hidden;
+  background: #f2e9e4;
+}
+
+.polaroid-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.polaroid-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Baloo 2", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.15);
+}
+
+.swatch-pink {
+  background: linear-gradient(135deg, var(--pink), var(--pink-dark));
+}
+
+.swatch-peach {
+  background: linear-gradient(135deg, var(--peach), #ffb26b);
+}
+
+.swatch-lavender {
+  background: linear-gradient(135deg, var(--lavender), #9d82e8);
+}
+
+.swatch-mint {
+  background: linear-gradient(135deg, var(--mint), #6bd9a0);
+}
+
+.swatch-sun {
+  background: linear-gradient(135deg, var(--sun), #ffb703);
+}
+
+.polaroid-caption {
+  display: block;
+  margin-top: 10px;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 600;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.husband-row {
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 2px dashed rgba(255, 255, 255, 0.5);
+  display: flex;
+  justify-content: center;
+}
+
+.husband-row .polaroid {
+  width: 190px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3), 0 0 0 3px var(--sun);
+}
+
+/* letter modal */
+.letter-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(60, 30, 45, 0.55);
+  backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 50;
+  animation: fade-in 0.2s ease;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.letter-card {
+  background: var(--card);
+  border-radius: 22px;
+  border: 4px solid #fff;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  padding: 30px 26px 22px;
+  max-width: 480px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+  text-align: center;
+  animation: pop-in 0.25s ease;
+}
+
+.letter-card.husband {
+  border-color: var(--sun);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 0 0 4px var(--peach);
+}
+
+.letter-ribbon {
+  display: inline-block;
+  background: var(--pink-dark);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.8rem;
+  letter-spacing: 0.4px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 12px;
+}
+
+.letter-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #fff;
+  color: var(--ink);
+  font-size: 1rem;
+  font-weight: 700;
+  box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.letter-photo {
+  display: block;
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 12px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.letter-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.letter-photo .polaroid-placeholder {
+  font-size: 2.2rem;
+}
+
+.letter-name {
+  font-family: "Baloo 2", sans-serif;
+  color: var(--pink-dark);
+  margin: 0 0 14px;
+}
+
+.letter-body {
+  text-align: left;
+  white-space: pre-line;
+  line-height: 1.55;
+  color: var(--ink);
+  margin: 0;
+}
+
+.letter-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 2px dashed #eeddd2;
+}
+
+.letter-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #fff;
+  border: 2px solid var(--lavender);
+  color: var(--ink);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.letter-count {
+  font-weight: 600;
+  color: #a5748f;
+  font-size: 0.9rem;
+  min-width: 50px;
+}
+
+@media (max-width: 480px) {
+  .wishes-grid {
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 22px 12px;
+  }
+
+  .corkboard {
+    padding: 24px 12px 20px;
+  }
+
+  .letter-card {
+    padding: 24px 18px 18px;
+  }
+}
+
 @media (max-width: 360px) {
   h1 {
     font-size: 1.35rem;
