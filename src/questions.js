@@ -16,12 +16,12 @@ export const QUESTIONS = [
     question:
       "Does Sara really like hosting or she thinks iss group mai sab bhukkad hai toh khilana padega.",
     options: [
-      "I like hosting",
+      "She likes hosting",
       "Sab bhukkad hai, isliye khilana padta hai",
       "Both, equally",
       "She secretly hates hosting",
     ],
-    correctAnswer: "I like hosting",
+    correctAnswer: "She likes hosting",
   },
   {
     question: "Sara wants to secretly create funny tik toks with Piyush bhai, True or False.",
@@ -45,27 +45,27 @@ export const QUESTIONS = [
   },
   {
     question: "Who's dressing style in this group Sara likes the most?",
-    options: ["Akansha", "Karan", "Bhumi", "Sarvesh"],
+    options: ["Akansha", "Anisha", "Bhumi", "Zalak", "Ritika"],
     correctAnswer: "Akansha",
   },
   {
-    question: "Who's is the most darkest person in this group according to Sara?",
-    options: ["Piyush bhai", "Arpit", "Anisha", "Manjit"],
+    question: "Who is the most darkest person in this group according to Sara?",
+    options: ["Piyush bhai", "Nitpreet", "Karan", "Manjit"],
     correctAnswer: "Piyush bhai",
   },
   {
-    question: "Who's is the most funniest person in this group according to Sara?",
-    options: ["Nitpreet", "Karan", "Zalak", "Bhumi"],
+    question: "Who is the most funniest person in this group according to Sara?",
+    options: ["Nitpreet", "Karan", "Piyush", "Sarvesh"],
     correctAnswer: "Nitpreet",
   },
   {
     question: "Which person in this group Sara can spend whole day talking and gossiping to?",
-    options: ["Akansha", "Arpit", "Sarvesh", "Aashvi"],
+    options: ["Akansha", "Arpit", "Manjit", "Zalak"],
     correctAnswer: "Akansha",
   },
   {
     question: "With which person would Sara like to post insta stories because they are photogenic?",
-    options: ["Zalak", "Anisha", "Pulkit", "Manjit"],
+    options: ["Zalak", "Anisha", "Pulkit", "Ritika"],
     correctAnswer: "Zalak",
   },
   {
@@ -76,7 +76,7 @@ export const QUESTIONS = [
   },
   {
     question: "Which one person in this group inspires Sara the most?",
-    options: ["Pulkit", "Sarvesh", "Arpit", "Anisha"],
+    options: ["Pulkit", "Sarvesh", "Bhumi", "Akansha"],
     correctAnswer: "Pulkit",
   },
 ];
