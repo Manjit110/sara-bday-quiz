@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { QUESTIONS, QUESTION_SECONDS } from "../questions";
 import { isSupabaseConfigured } from "../config";
@@ -22,6 +22,11 @@ export default function PlayerPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [retryTick, setRetryTick] = useState(0);
+  const playerIdRef = useRef(player?.id ?? null);
+
+  useEffect(() => {
+    playerIdRef.current = player?.id ?? null;
+  }, [player]);
 
   useEffect(() => {
     if (!isSupabaseConfigured) return;
@@ -69,7 +74,17 @@ export default function PlayerPage() {
           .from("players")
           .select("*")
           .order("joined_at", { ascending: true });
-        setPlayers(data || []);
+        const list = data || [];
+        setPlayers(list);
+
+        // The admin's "Reset Game" wipes the players table. If this device's
+        // player row just got deleted out from under it, drop back to the
+        // join screen instead of being stuck on a dead session.
+        if (playerIdRef.current && !list.some((p) => p.id === playerIdRef.current)) {
+          localStorage.removeItem("sara_quiz_player");
+          playerIdRef.current = null;
+          setPlayer(null);
+        }
       })
       .subscribe();
 
@@ -248,7 +263,7 @@ function QuestionScreen({ gameState, player }) {
         Question {qIndex + 1} / {QUESTIONS.length}
       </div>
       <div className="timer-ring">
-        <svg width="84" height="84">
+        <svg width="100%" height="100%" viewBox="0 0 84 84">
           <circle className="bg" cx="42" cy="42" r="36" />
           <circle
             className="fg"
