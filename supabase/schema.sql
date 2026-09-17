@@ -14,11 +14,15 @@ create table if not exists players (
 -- Single-row table holding the current state of the game
 create table if not exists game_state (
   id int primary key,
-  status text not null default 'waiting', -- 'waiting' | 'active' | 'finished'
+  status text not null default 'waiting', -- 'waiting' | 'active' | 'revealing' | 'finished'
   current_question int not null default -1,
   question_started_at timestamptz,
+  reveal_started_at timestamptz,
   constraint game_state_single_row check (id = 1)
 );
+
+-- Safe to re-run on an existing project that predates the reveal countdown.
+alter table game_state add column if not exists reveal_started_at timestamptz;
 
 insert into game_state (id, status, current_question)
 values (1, 'waiting', -1)
@@ -36,12 +40,15 @@ create table if not exists answers (
   unique (player_id, question_index)
 );
 
--- Award points on correct answers: 100 base + up to 50 speed bonus for answering fast
+-- Award points on correct answers: flat 10 pts each, 13 questions = 130 max.
+-- No speed bonus, so a player's score is always "correct answers so far x 10" —
+-- if someone leaves mid-game, whatever they answered before leaving already
+-- counts, nothing further to reconcile.
 create or replace function award_points() returns trigger as $$
 begin
   if new.is_correct then
     update players
-    set score = score + 100 + greatest(0, floor((15000 - new.answer_time_ms) / 1000.0) * 5)::int
+    set score = score + 10
     where id = new.player_id;
   end if;
   return new;

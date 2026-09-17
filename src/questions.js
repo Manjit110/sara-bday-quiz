@@ -82,3 +82,11 @@ export const QUESTIONS = [
 ];
 
 export const QUESTION_SECONDS = 15;
+
+// Each correct answer is worth a flat 10 pts (see supabase/schema.sql's
+// award_points trigger) — QUESTIONS.length * 10 = 130 max possible score.
+export const POINTS_PER_QUESTION = 10;
+
+// How long the "and the winner is..." suspense screen holds before the
+// leaderboard reveals, once the last question ends.
+export const REVEAL_SECONDS = 5;

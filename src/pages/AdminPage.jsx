@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { supabase } from "../supabaseClient";
-import { QUESTIONS, QUESTION_SECONDS } from "../questions";
+import { QUESTIONS, QUESTION_SECONDS, REVEAL_SECONDS } from "../questions";
 import { ADMIN_PIN, isSupabaseConfigured } from "../config";
 import SetupNeeded from "../SetupNeeded";
 import ErrorCard from "../ErrorCard";
@@ -97,8 +97,11 @@ export default function AdminPage() {
   async function advanceOrFinish(fromIndex) {
     const nextIndex = fromIndex + 1;
     if (nextIndex >= QUESTIONS.length) {
-      await supabase.from("game_state").update({ status: "finished" }).eq("id", 1);
-      setDriving(false);
+      await supabase
+        .from("game_state")
+        .update({ status: "revealing", reveal_started_at: new Date().toISOString() })
+        .eq("id", 1);
+      scheduleReveal();
       return;
     }
     await supabase
@@ -113,6 +116,16 @@ export default function AdminPage() {
     advanceTimer.current = setTimeout(() => advanceOrFinish(fromIndex), QUESTION_SECONDS * 1000);
   }
 
+  function scheduleReveal() {
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+    advanceTimer.current = setTimeout(finishGame, REVEAL_SECONDS * 1000);
+  }
+
+  async function finishGame() {
+    await supabase.from("game_state").update({ status: "finished" }).eq("id", 1);
+    setDriving(false);
+  }
+
   async function startQuiz() {
     await supabase
       .from("game_state")
@@ -124,9 +137,17 @@ export default function AdminPage() {
 
   function resumeDriving() {
     setDriving(true);
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+
+    if (gameState.status === "revealing") {
+      const elapsed = Date.now() - new Date(gameState.reveal_started_at).getTime();
+      const remaining = Math.max(0, REVEAL_SECONDS * 1000 - elapsed);
+      advanceTimer.current = setTimeout(finishGame, remaining);
+      return;
+    }
+
     const elapsed = Date.now() - new Date(gameState.question_started_at).getTime();
     const remaining = Math.max(0, QUESTION_SECONDS * 1000 - elapsed);
-    if (advanceTimer.current) clearTimeout(advanceTimer.current);
     advanceTimer.current = setTimeout(() => advanceOrFinish(gameState.current_question), remaining);
   }
 
@@ -244,6 +265,22 @@ export default function AdminPage() {
               {driving
                 ? "Auto-advancing every 15s..."
                 : "This tab isn't driving the countdown. Click below to take over (e.g. after a refresh)."}
+            </p>
+            {!driving && (
+              <button className="btn-primary" onClick={resumeDriving}>
+                Resume driving from here
+              </button>
+            )}
+          </>
+        )}
+
+        {gameState.status === "revealing" && !showScoreboard && (
+          <>
+            <h1>&#129345; Revealing the winner...</h1>
+            <p className="status-msg">
+              {driving
+                ? "Leaderboard opens for everyone in a few seconds..."
+                : "This tab isn't driving the reveal. Click below to take over (e.g. after a refresh)."}
             </p>
             {!driving && (
               <button className="btn-primary" onClick={resumeDriving}>

@@ -3,7 +3,8 @@
 A live, multiplayer "how well do you know Sara" quiz for her birthday. Questions and
 correct answers come straight from Sara's own Google Form. Friends join with just
 their name, wait in a lobby, then answer 13 timed multiple-choice questions (15
-seconds each) together. Ends with a ranked leaderboard and a crowned winner.
+seconds each, 10 pts each — 130 pts total) together. Ends with a 5-second "and the
+winner is..." drumroll, then a ranked leaderboard and a crowned winner.
 
 Built with **React + Vite**, backed by **Supabase** for live sync and scoring, and
 deployed to **GitHub Pages** automatically via GitHub Actions on every push to `main`.
@@ -21,7 +22,8 @@ needs no PIN and no Supabase; share it separately from the quiz link whenever yo
 
 - **`src/pages/PlayerPage.jsx`** — the player app: name entry → waiting room → live quiz → leaderboard.
 - **`src/pages/AdminPage.jsx`** — the host dashboard: see who's joined, hit **Start Quiz**, and it
-  auto-advances every 15 seconds until the last question, then everyone sees the leaderboard.
+  auto-advances every 15 seconds; after the last question it holds a 5-second reveal
+  countdown before everyone sees the leaderboard.
 - **`src/pages/WishesPage.jsx`** — a standalone "birthday wishes" page: a corkboard of polaroid
   photos, one per friend (Manish, her husband, pinned separately below as the closer). Tap a
   photo to open the full letter, with prev/next to browse everyone's message. Static — no
@@ -31,8 +33,11 @@ needs no PIN and no Supabase; share it separately from the quiz link whenever yo
   on the next deploy. Anyone without a photo just gets a colored initial avatar.
 - **Supabase** stores players, the shared game state, and every submitted answer, and
   pushes realtime updates to every open tab (Supabase Realtime on Postgres changes).
-  Scoring (100 pts + a speed bonus for fast correct answers) happens in a Postgres
-  trigger, so it's recorded server-side, not trusted to the client. (The wishes page
+  Scoring (a flat 10 pts per correct answer, no speed bonus — 130 pts max across all
+  13 questions) happens in a Postgres trigger the moment an answer is submitted, so
+  it's recorded server-side, not trusted to the client, and a player's score is always
+  correct up to whatever they've answered so far — if someone drops off mid-game,
+  their score simply stops climbing rather than needing any cleanup. (The wishes page
   doesn't use Supabase at all — it's plain static content.)
 
 ## One-time setup
@@ -71,8 +76,9 @@ Then open the printed local URL for the player view, and `/#/admin` for the admi
 4. The admin tab auto-advances the group to the next question every 15 seconds — no
    manual clicking needed. Keep that tab open/awake during the quiz (if you have to
    refresh it, it'll offer a "Resume driving from here" button).
-5. After the last question, everyone automatically sees the leaderboard, with the
-   winner under a bouncing crown 👑 and falling flower/confetti.
+5. After the last question, everyone sees a 5-second "and the winner is..." drumroll
+   countdown, then automatically lands on the leaderboard, with the winner under a
+   bouncing crown 👑 and falling flower/confetti.
 6. Use **Reset Game** on the admin dashboard to wipe players/answers and run it again
    (e.g. for a second group).
 

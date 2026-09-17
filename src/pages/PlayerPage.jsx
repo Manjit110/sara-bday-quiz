@@ -5,6 +5,7 @@ import { isSupabaseConfigured } from "../config";
 import SetupNeeded from "../SetupNeeded";
 import ErrorCard from "../ErrorCard";
 import Leaderboard from "../components/Leaderboard";
+import RevealCountdown from "../components/RevealCountdown";
 import { avatarForId } from "../avatars";
 
 function loadStoredPlayer() {
@@ -136,6 +137,9 @@ export default function PlayerPage() {
         )}
         {player && gameState && gameState.status === "active" && (
           <QuestionScreen key={gameState.current_question} gameState={gameState} player={player} />
+        )}
+        {player && gameState && gameState.status === "revealing" && (
+          <RevealCountdown startedAt={gameState.reveal_started_at} />
         )}
         {player && gameState && gameState.status === "finished" && (
           <Leaderboard highlightPlayerId={player.id} confetti />
