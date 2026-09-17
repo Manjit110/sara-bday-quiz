@@ -1,4 +1,4 @@
-// "Who Knows Sara?" — Birthday Quiz question bank
+// "Who Knows Sara Ko Sara?" — Birthday Quiz question bank
 // Question wording is verbatim from Sara's own Google Form (typos and all —
 // don't "fix" the phrasing). Correct answers are exactly what Sara wrote.
 // Each question also has 3 extra options so it plays like a real multiple-choice

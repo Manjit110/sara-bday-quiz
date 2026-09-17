@@ -1,4 +1,4 @@
--- "Who Knows Sara?" birthday quiz — run this once in the Supabase SQL editor
+-- "Who Knows Sara Ko Sara?" birthday quiz — run this once in the Supabase SQL editor
 -- (Project -> SQL Editor -> New query -> paste -> Run).
 
 create extension if not exists "pgcrypto";

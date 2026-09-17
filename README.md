@@ -1,4 +1,4 @@
-# 🌸 Who Knows Sara? — Birthday Quiz
+# 🌸 Who Knows Sara Ko Sara? — Birthday Quiz
 
 A live, multiplayer "how well do you know Sara" quiz for her birthday. Questions and
 correct answers come straight from Sara's own Google Form. Friends join with just

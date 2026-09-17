@@ -163,7 +163,7 @@ function JoinScreen({ onJoin }) {
 
   return (
     <>
-      <h1>&#127874; Who Knows Sara?</h1>
+      <h1>&#127874; Who Knows Sara Ko Sara?</h1>
       <p className="subtitle">Enter your name to join the birthday quiz!</p>
       <input
         type="text"
