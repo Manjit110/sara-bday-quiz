@@ -188,6 +188,24 @@ Happy Birthday Sara ❤️. I feel you are among the few most joyful, positive a
 You speak up, but gently. You face the world of negatives, positively. You voice your opinions, but empathetically. I have always loved how you comfort others not with words but with actions. I really wish you an amazing year ahead, keep up your spark, don't let the world rattle you ❤️🥰`,
   },
   {
+    id: "manjit",
+    name: "Manjit",
+    message: `One memory that always comes to my mind when I think about you is your birthday party. Before the party even started, downstairs in the hall, you were doing my makeup and your own makeup for the vampire theme, making sure everything was perfect. But what stood out to me wasn't just how much you cared about looking your best, it was how much you cared about making sure everyone around you looked and felt their best too. And I think that says a lot about the kind of person you are. You don't just think about yourself; you genuinely care about the people around you.
+
+And if there's one quality about you that I really love, it's that you're such a "perfect energy reciprocator." 😂❤️
+
+It honestly doesn't matter what mood someone is in — happy, sad, frustrated, angry, low-energy or completely hyper — somehow you just know how to meet them where they are. You match people's energy so naturally that nobody ever feels out of place around you. When you're with Sara, you just feel "in sync."
+
+And that's probably why you gel with literally everyone. 😂 Whether someone is super boring, extremely interesting, scary as hell, or even a little questionable as a human being 😂, somehow you'll still find a way to connect with them. That's a pretty rare quality.
+
+We're genuinely so grateful that you became a part of this group. You bring your own kind of energy, and somehow you just fit right in with everyone.
+
+So, on your birthday, I just want to say keep laughing, keep shining, keep bringing that energy wherever you go.
+
+Happy Birthday once again, Sara! ❤️
+Wishing you an amazing year ahead filled with happiness, love, laughter, and everything you deserve. Keep shining! ✨`,
+  },
+  {
     id: "abhishek",
     name: "Abhishek",
     message: `Same hi hai mera Ritika ka, Baki Happy Bday Bro`,
