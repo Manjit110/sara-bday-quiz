@@ -599,6 +599,12 @@ button {
   gap: 26px 18px;
 }
 
+/* Invisible grid cell used to shift a trailing partial row over so it lines
+   up under a specific card above it, instead of defaulting to column 1. */
+.polaroid-spacer {
+  visibility: hidden;
+}
+
 .polaroid {
   background: #fff;
   border-radius: 6px;

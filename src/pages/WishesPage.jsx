@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { WISHES } from "../wishesData";
 import { photoFor } from "../wishesPhotos";
 
@@ -94,7 +94,10 @@ export default function WishesPage() {
       <div className="corkboard">
         <div className="wishes-grid">
           {friends.map((person, i) => (
-            <Polaroid key={person.id} person={person} index={i} onOpen={setOpenIndex} />
+            <Fragment key={person.id}>
+              {person.id === "pulkit" && <span className="polaroid-spacer" aria-hidden="true" />}
+              <Polaroid person={person} index={i} onOpen={setOpenIndex} />
+            </Fragment>
           ))}
         </div>
 
